@@ -60,6 +60,19 @@ def main():
 
         translator = init_translator(options)
 
+        # Set up auto-save after each batch if using project file
+        if project.use_project_file:
+            def on_batch_translated(sender, batch):
+                """Auto-save project file after each batch is translated"""
+                try:
+                    project.UpdateProjectFile()
+                    logging.debug(f"Auto-saved project file after batch {batch.number}")
+                except Exception as e:
+                    logging.warning(f"Failed to auto-save project file: {e}")
+
+            translator.events.batch_translated.connect(on_batch_translated)
+            logging.info("Auto-save enabled: project file will be saved after each batch")
+
         project.TranslateSubtitles(translator)
 
         if project.use_project_file:
