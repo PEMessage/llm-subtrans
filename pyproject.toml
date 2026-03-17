@@ -50,6 +50,9 @@ where = ["."]
 include = ["PySubtrans*", "GuiSubtrans*", "scripts*"]
 namespaces = true
 
+[tool.setuptools.package-data]
+"PySubtrans" = ["instructions/*.txt"]
+
 [tool.pyright]
 include = ["PySubtrans", "GuiSubtrans", "scripts", "tests"]
 pythonVersion = "3.10"

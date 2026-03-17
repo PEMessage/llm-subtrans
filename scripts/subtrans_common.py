@@ -5,6 +5,7 @@ from argparse import ArgumentParser, Namespace
 from dataclasses import dataclass
 
 from PySubtrans.Helpers import GetOutputPath
+from PySubtrans.Helpers.Resources import GetResourcePath
 from PySubtrans.Helpers.Localization import _
 from PySubtrans.Helpers.Parse import ParseNames
 from PySubtrans import batch_subtitles, preprocess_subtitles, init_options
@@ -124,7 +125,7 @@ def CreateOptions(args: Namespace, provider: str, **kwargs) -> Options:
         'include_original': args.includeoriginal,
         'add_right_to_left_markers': args.addrtlmarkers,
         'instruction_args': args.instruction,
-        'instruction_file': args.instructionfile or "instructions.txt",
+        'instruction_file': args.instructionfile or GetResourcePath("instructions", "instructions.txt"),
         'substitution_mode': "Partial Words" if args.matchpartialwords else "Auto",
         'max_batch_size': args.maxbatchsize,
         'max_context_summaries': args.maxsummaries,
